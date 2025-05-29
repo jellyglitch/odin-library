@@ -11,11 +11,13 @@ function Book(title, author, pages, read) {
 
 function addBookToLibrary(title, author, pages, read) {
     const book = new Book(title, author, pages, read);
+    var displayBook = document.createElement("div");
+    displayBook.classList.add('book-card');
+    displayBook.innerHTML = title;
 
     myLibrary.push(book);
+    display.appendChild(displayBook);
 }
-
-addBookToLibrary("test", "tst", 24, true);
 
 function displayBooks(){
     for(let i = 0; i < myLibrary.length; i++){
@@ -23,4 +25,6 @@ function displayBooks(){
     }
 }
 
-displayBooks();
+addBookToLibrary("test", "tst", 24, true);
+addBookToLibrary("test1", "tst", 24, true);
+
