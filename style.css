@@ -17,14 +17,18 @@
     width: 500px;
     height: 400px;
     padding: 5px;
-    display: flex;
-    gap: 5px;
-    flex-direction: column;
 }
 
 .header {
     display: flex;
     justify-content: space-between;
+}
+
+.books {
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    margin-top: 5px;
 }
 
 .book-card {
@@ -42,8 +46,40 @@
     border-radius: 5px;
     padding: 5px 10px;
     cursor: pointer;
+    font-weight: bold;
+    color: #fff;
 }
 
 .add-book:hover {
+    background-color: #7d5dc1;
+}
+
+#book-form {
+    display: none;
+    margin-top: 10px;
+    padding: 10px 40px;
+}
+
+.book-form form {
+    display: flex;
+    flex-flow: column wrap;
+    gap: 10px;
+}
+
+.book-form button {
+    width: 100px;
+    height: 35px;
+    text-align: center;
+    font-weight: bold;
+    color: #fff;
+    background-color: #ad97dd;
+
+    border: none;
+    border-radius: 5px;
+
+    cursor: pointer;
+}
+
+.book-form button:hover {
     background-color: #7d5dc1;
 }
