@@ -2,6 +2,7 @@ const myLibrary = [];
 const display = document.getElementById("display");
 var books = document.getElementById("books");
 var form = document.getElementById("book-form");
+form.style.display = "none";
 
 function Book(title, author, pages, read) {
     this.title = title;
@@ -19,8 +20,16 @@ function addBookToLibrary(title, author, pages, read) {
     displayBook.textContent += `${title} by ${author},
         pages: ${pages}, read: ${read}`;
 
+    var removeBook = document.createElement("div");
+    removeBook.innerHTML += `<button class="remove-book" onclick="removeBook(${displayBook})">remove</button>`;
+
     myLibrary.push(book);
     books.appendChild(displayBook);
+    displayBook.appendChild(removeBook);
+}
+
+function removeBook(book){
+    books.removeChild(book);
 }
 
 function bookForm(){
@@ -48,5 +57,6 @@ document.getElementById("submit-book").onclick = function(e){
     addBookToLibrary(title, author, pages, completed);
     form.style.display = "none";
     books.style.display = "flex";
-    e.target.reset();
+
+    document.getElementById("form").reset();
 }
