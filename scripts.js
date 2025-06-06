@@ -17,19 +17,22 @@ function addBookToLibrary(title, author, pages, read) {
 
     var displayBook = document.createElement("div");
     displayBook.classList.add('book-card');
+    displayBook.setAttribute('data-index', myLibrary.length);
     displayBook.textContent += `${title} by ${author},
         pages: ${pages}, read: ${read}`;
 
     var removeBook = document.createElement("div");
-    removeBook.innerHTML += `<button class="remove-book" onclick="removeBook(${displayBook})">remove</button>`;
+    removeBook.innerHTML += `<button class="remove-book" onclick="removeBook(this)">remove</button>`;
 
     myLibrary.push(book);
     books.appendChild(displayBook);
     displayBook.appendChild(removeBook);
 }
 
-function removeBook(book){
-    books.removeChild(book);
+function removeBook(button){
+    let target = Number(button.parentElement.parentElement.getAttribute('data-index'));
+    button.parentElement.parentElement.remove();
+    myLibrary.splice(target, 1)
 }
 
 function bookForm(){
