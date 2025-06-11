@@ -7,31 +7,59 @@ form.style.display = "none";
 function Book(title, author, pages, read) {
     this.title = title;
     this.author = author;
-    this.page = pages;
+    this.pages = pages;
     this.read = read;
     const ID = crypto.randomUUID;
 }
 
-function addBookToLibrary(title, author, pages, read) {
-    const book = new Book(title, author, pages, read);
-
-    var displayBook = document.createElement("div");
-    displayBook.classList.add('book-card');
-    displayBook.setAttribute('data-index', myLibrary.length);
-    displayBook.textContent += `${title} by ${author},
-        pages: ${pages}, read: ${read}`;
-
-    var removeBook = document.createElement("div");
-    removeBook.innerHTML += `<button class="remove-book" onclick="removeBook(this)">remove</button>`;
-
-    myLibrary.push(book);
-    books.appendChild(displayBook);
-    displayBook.appendChild(removeBook);
+Book.prototype.changeStatus = function (bookInfo) {
+    this.read = this.read === "yes" ? "no" : "yes";
+    bookInfo.textContent = `read: ${this.read}`;
 }
 
-function removeBook(button){
-    let target = Number(button.parentElement.parentElement.getAttribute('data-index'));
-    button.parentElement.parentElement.remove();
+Book.prototype.displayBook = function(index){
+    const displayBook = document.createElement("div");
+    displayBook.classList.add('book-card');
+    displayBook.setAttribute('data-index', index);
+    displayBook.textContent = `${this.title} by ${this.author},
+        pages: ${this.pages}`;
+
+    const status = document.createElement("div");
+    status.textContent = `read: ${this.read}`;
+
+    const bookButtons = document.createElement("div");
+    bookButtons.classList.add("buttons");
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.classList.add("toggle");
+    toggleBtn.textContent = "toggle read";
+    toggleBtn.addEventListener("click", () => this.changeStatus(status));
+
+    const removeBtn = document.createElement("button");
+    removeBtn.classList.add("remove-book");
+    removeBtn.textContent = "x";
+    removeBtn.addEventListener("click", () => this.removeBook(displayBook));
+
+    bookButtons.appendChild(toggleBtn);
+    bookButtons.appendChild(removeBtn);
+
+    displayBook.appendChild(status);
+    displayBook.appendChild(bookButtons);
+    
+    return displayBook;
+}
+
+function addBookToLibrary(title, author, pages, read) {
+    const book = new Book(title, author, pages, read);
+    myLibrary.push(book);
+
+    const bookElement = book.displayBook(myLibrary.length - 1);
+    books.appendChild(bookElement);
+}
+
+Book.prototype.removeBook = function (book){
+    let target = Number(book.getAttribute('data-index'));
+    book.remove();
     myLibrary.splice(target, 1)
 }
 

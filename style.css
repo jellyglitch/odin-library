@@ -39,6 +39,7 @@
     height: 50px;
     width: 100%;  
     padding: 0 20px;
+    font-size: 0.9rem;
 }
 
 .add-book {
@@ -85,7 +86,12 @@
     background-color: #7d5dc1;
 }
 
-.remove-book {
+.buttons {
+    display: flex;
+    gap: 5px;
+}
+
+.remove-book, .toggle {
     font-size: 0.7rem;
     width: 100%;
     padding: 5px 10px;
